@@ -12,9 +12,13 @@ class CreatePost extends Component
 {
     use WithFileUploads;
 
-    public $open = true;
+    public $open = false;
 
-    public $title, $content, $image;
+    public $title, $content, $image, $identificador;
+
+    public function mount(){
+        $this->identificador = rand();
+    }
 
     protected $rules = [
         'title' => 'required',
@@ -26,12 +30,17 @@ class CreatePost extends Component
 
         $this->validate();
 
+        $image = $this->image->store('posts');
+
         Post::create([
             'title' => $this->title,
-            'content' => $this->content
+            'content' => $this->content,
+            'image' => $image
         ]);
 
-        $this->reset(['open', 'title', 'content']);
+        $this->reset(['open', 'title', 'content', 'image']);
+
+        $this->identificador = rand();
 
         $this->emitTo('show-posts','render');
 

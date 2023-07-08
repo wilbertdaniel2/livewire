@@ -1,12 +1,12 @@
 <div>
-    <x-jet-danger-button wire:click="$set('open', true)">
-        Crear nuevo post
-    </x-jet-danger-button>
+    <a class="btn btn-green" wire:click="$set('open', true)">
+        <i class="fas fa-edit"></i>
+    </a>
 
     <x-jet-dialog-modal wire:model="open">
 
         <x-slot name="title">
-            Crear nuevo post
+            Editar el post
         </x-slot>
 
         <x-slot name="content">
@@ -17,18 +17,21 @@
 
             @if ($image)
                 <img class="mb-4" src="{{$image->temporaryUrl()}}">
+
+            @else
+
+                <img src="{{Storage::url($post->image)}}" alt="">
+
             @endif
 
             <div class="mb-4">
                 <x-jet-label value="Titulo del post" />
-                <x-jet-input type="text" class="w-full" wire:model.defer="title"/>
-               <x-jet-input-error for="title" />
+                <x-jet-input wire:model="post.title" type="text" class="w-full" />
             </div>
 
-            <div class="mb-4">
+            <div>
                 <x-jet-label value="Contenido del post" />
-                <textarea wire:model.defer="content" rows="6" class="form-control w-full"></textarea>
-                <x-jet-input-error for="content" />
+                <textarea wire:model="post.content" rows="6" class="form-control w-full"></textarea>
             </div>
 
             <div>
@@ -39,16 +42,13 @@
         </x-slot>
 
         <x-slot name="footer">
-
             <x-jet-secondary-button wire:click="$set('open', false)" class="mr-2">
                 Cancelar
             </x-jet-secondary-button>
 
-            <x-jet-danger-button wire:click="save" wire:loading.attr="disabled" wire:target="save, image" class="disabled">
-                Crear post
+            <x-jet-danger-button wire:click="save" wire:loading.attr="disabled" class="disabled:opacity-25">
+                Actualizar
             </x-jet-danger-button>
-
-            {{-- <span wire:loading wire:target="save" class="ml-2">Cargando...</span> --}}
         </x-slot>
 
     </x-jet-dialog-modal>
