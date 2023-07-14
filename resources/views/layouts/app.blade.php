@@ -19,6 +19,8 @@
     <!-- Styles -->
     @livewireStyles
 
+    @stack('css')
+
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -50,6 +52,9 @@
     @stack('modals')
 
     @livewireScripts
+
+    @stack('js')
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
     <script>
         livewire.on('alert', function(message) {
