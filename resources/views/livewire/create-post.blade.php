@@ -25,7 +25,7 @@
                <x-jet-input-error for="title" />
             </div>
 
-            {{$content}}
+            {{-- {{$content}} --}}
 
             <div class="mb-4" wire:ignore>
                 <x-jet-label value="Contenido del post" />
